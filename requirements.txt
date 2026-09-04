@@ -1,0 +1,4 @@
+Django==5.1.11
+django-redis==5.4.0
+psycopg[binary]==3.2.9
+locust==2.37.14

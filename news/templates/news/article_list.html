@@ -1,0 +1,4 @@
+<!doctype html>
+<title>News</title>
+{% if user.is_authenticated %}<p>Welcome, {{ user.username }}</p>{% else %}<p>Welcome, anonymous</p>{% endif %}
+<ul>{% for article in articles %}<li><a href="{% url 'article-detail' article.pk %}">{{ article.title }}</a></li>{% endfor %}</ul>

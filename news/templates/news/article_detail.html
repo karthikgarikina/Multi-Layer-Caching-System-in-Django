@@ -1,0 +1,7 @@
+{% load cache %}
+<!doctype html>
+<title>{{ article.title }}</title>
+<h1>{{ article.title }}</h1>
+{% cache 300 article_body article.id article.updated_at.timestamp %}
+<article>{{ article.body }}</article>
+{% endcache %}
