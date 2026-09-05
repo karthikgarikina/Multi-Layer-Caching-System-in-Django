@@ -33,6 +33,13 @@ class CacheContractTests(TestCase):
         self.article.save()
         self.assertIsNone(cache.get(TRENDING_KEY))
 
+    def test_trending_endpoint_caches_its_low_level_result(self):
+        with patch("news.services.compute_trending_articles", return_value=[]) as compute:
+            self.assertEqual(self.client.get("/articles/trending/").status_code, 200)
+            self.assertEqual(self.client.get("/articles/trending/").status_code, 200)
+        self.assertEqual(compute.call_count, 1)
+        self.assertEqual(cache.get(TRENDING_KEY), [])
+
     def test_bulk_endpoint_invalidates_trending(self):
         cache.set(TRENDING_KEY, ["cached"], 300)
         self.assertEqual(self.client.post("/articles/bulk-view-increment/").status_code, 204)

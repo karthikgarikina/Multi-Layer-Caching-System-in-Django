@@ -24,6 +24,11 @@ def get_trending_articles():
         return data
     if cache.add(LOCK_KEY, "1", timeout=60):
         try:
+            # Another request may have populated the value just before this
+            # worker obtained a released lock; never recompute in that case.
+            data = cache.get(TRENDING_KEY)
+            if data is not None:
+                return data
             data = compute_trending_articles()
             cache.set(TRENDING_KEY, data, timeout=300)
             return data
