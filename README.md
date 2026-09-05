@@ -42,6 +42,12 @@ It also demonstrates cache invalidation after normal `Article.save()` calls (a D
 | Versioned fragment cache | Run `curl -i http://localhost:8000/articles/1/`. `X-Fragment-Cache-Key` is the exact Django fragment key. Save article 1 in `/admin/`, repeat the request, and verify the header changed. |
 | Benchmarks | Read [benchmarks/report.md](benchmarks/report.md). It includes real Locust results, p95 latency, and Redis hit rate. |
 
+---
+### Demo Video
+
+https://youtu.be/1ZSzlD2M9p4
+
+---
 ### Optional benchmark commands
 
 The report was generated with `locustfile.py`. To reproduce the no-cache baseline, start the app with the supplied temporary environment and run Locust; then restore the final configuration.
